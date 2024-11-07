@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Create Shift</h2>
+    <form method="post" action="{{ url_for('shift_create') }}" onsubmit="return validateShift()">
+        <div class="form-group">
+            <label for="shift-name">Shift Name:</label>
+            <input type="text" id="shift-name" name="shift_name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="credit">Credit:</label>
+            <input type="number" id="credit" name="credit" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="start-time">Start Time:</label>
+            <input type="time" id="start-time" name="start_time" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="end-time">End Time:</label>
+            <input type="time" id="end-time" name="end_time" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="late-after">Late After (min):</label>
+            <input type="number" id="late-after" name="late_after" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="early-leave">Early leave (min):</label>
+            <input type="number" id="early-leave" name="early_leave" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Department:</label><br>
+            {% for department in departments %}
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="{{ department | lower }}" name="departments" value="{{ department }}" class="form-check-input">
+                    <label for="{{ department | lower }}" class="form-check-label">{{ department }}</label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label>Days in Week:</label><br>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="mo" name="days" value="Mo" class="form-check-input">
+                <label for="mo" class="form-check-label">Mo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="tu" name="days" value="Tu" class="form-check-input">
+                <label for="tu" class="form-check-label">Tu</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="we" name="days" value="We" class="form-check-input">
+                <label for="we" class="form-check-label">We</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="th" name="days" value="Th" class="form-check-input">
+                <label for="th" class="form-check-label">Th</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="fr" name="days" value="Fr" class="form-check-input">
+                <label for="fr" class="form-check-label">Fr</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="sa" name="days" value="Sa" class="form-check-input">
+                <label for="sa" class="form-check-label">Sa</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="su" name="days" value="Su" class="form-check-input">
+                <label for="su" class="form-check-label">Su</label>
+            </div>
+        </div>
+        <input type="hidden" id="existing-shifts" value='{{ existing_shifts|tojson }}'>
+        <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+</div>
+
+<script>
+    function validateShift() {
+        const startTime = document.getElementById('start-time').value;
+        const endTime = document.getElementById('end-time').value;
+        let departments = Array.from(document.querySelectorAll('input[name="departments"]:checked')).map(el => el.value);
+        let days = Array.from(document.querySelectorAll('input[name="days"]:checked')).map(el => el.value);
+        const existingShifts = JSON.parse(document.getElementById('existing-shifts').value);
+
+        // Check if no departments are selected, if so, select all
+        if (departments.length === 0) {
+            departments = Array.from(document.querySelectorAll('input[name="departments"]')).map(el => {
+                el.checked = true;
+                return el.value;
+            });
+        }
+
+        // Check if no days are selected, if so, select all
+        if (days.length === 0) {
+            days = Array.from(document.querySelectorAll('input[name="days"]')).map(el => {
+                el.checked = true;
+                return el.value;
+            });
+        }
+
+        for (const shift of existingShifts) {
+            if (departments.some(dept => shift.department.includes(dept)) && days.some(day => shift.days.includes(day))) {
+                const shiftStart = new Date(`1970-01-01T${shift.start_time}:00`);
+                const shiftEnd = new Date(`1970-01-01T${shift.end_time}:00`);
+                const newStart = new Date(`1970-01-01T${startTime}:00`);
+                const newEnd = new Date(`1970-01-01T${endTime}:00`);
+
+                if ((newStart < shiftEnd && newEnd > shiftStart) || (newStart - shiftEnd < 30 * 60 * 1000)) {
+                    alert('Shift timing conflicts with existing shifts or does not have a 30-minute gap.');
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+</script>
+{% endblock %}

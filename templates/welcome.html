@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timekeeping & Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 10; /* Make sure container is above the overlay */
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.3em;
+            color: #555;
+            margin-top: 0;
+        }
+
+        .button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/brick-wall.png');
+            opacity: 0.1;
+            z-index: 1; /* Make sure overlay is behind the container */
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Timekeeping & Management System</h1>
+        <p>Welcome to our efficient and easy-to-use Timekeeping & Management System. Manage your schedules, track your work hours, and simplify your workflow.</p>
+        <a href="{{ url_for('login') }}" class="button">Go to Login</a>
+    </div>
+</body>
+</html>

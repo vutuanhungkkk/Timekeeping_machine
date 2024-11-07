@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Edit Shift</h2>
+    <form method="post" action="{{ url_for('shift_edit', id=shift.id) }}">
+        <div class="form-group">
+            <label for="shift-name">Shift Name:</label>
+            <input type="text" id="shift-name" name="shift_name" class="form-control" value="{{ shift.shift_name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="credit">Credit:</label>
+            <input type="number" id="credit" name="credit" class="form-control" value="{{ shift.credit }}" required step="0.1">
+        </div>
+        <div class="form-group">
+            <label for="start-time">Start Time:</label>
+            <input type="time" id="start-time" name="start_time" class="form-control" value="{{ shift.start_time }}" required>
+        </div>
+        <div class="form-group">
+            <label for="end-time">End Time:</label>
+            <input type="time" id="end-time" name="end_time" class="form-control" value="{{ shift.end_time }}" required>
+        </div>
+        <div class="form-group">
+            <label for="late-after">Late After (min):</label>
+            <input type="number" id="late-after" name="late_after" class="form-control" value="{{ shift.late_after }}" required>
+        </div>
+        <div class="form-group">
+            <label for="early-leave">Early leave (min):</label>
+            <input type="number" id="early-leave" name="early_leave" class="form-control" value="{{ shift.early_leave }}" required>
+        </div>
+        <div class="form-group">
+            <label>Department:</label><br>
+            {% for department in departments %}
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="{{ department | lower }}" name="departments" value="{{ department }}" class="form-check-input" {% if department in shift.department %}checked{% endif %}>
+                    <label for="{{ department | lower }}" class="form-check-label">{{ department }}</label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label>Days in Week:</label><br>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="mo" name="days" value="Mo" class="form-check-input" {% if 'Mo' in shift.days %}checked{% endif %}>
+                <label for="mo" class="form-check-label">Mo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="tu" name="days" value="Tu" class="form-check-input" {% if 'Tu' in shift.days %}checked{% endif %}>
+                <label for="tu" class="form-check-label">Tu</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="we" name="days" value="We" class="form-check-input" {% if 'We' in shift.days %}checked{% endif %}>
+                <label for="we" class="form-check-label">We</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="th" name="days" value="Th" class="form-check-input" {% if 'Th' in shift.days %}checked{% endif %}>
+                <label for="th" class="form-check-label">Th</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="fr" name="days" value="Fr" class="form-check-input" {% if 'Fr' in shift.days %}checked{% endif %}>
+                <label for="fr" class="form-check-label">Fr</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="sa" name="days" value="Sa" class="form-check-input" {% if 'Sa' in shift.days %}checked{% endif %}>
+                <label for="sa" class="form-check-label">Sa</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="su" name="days" value="Su" class="form-check-input" {% if 'Su' in shift.days %}checked{% endif %}>
+                <label for="su" class="form-check-label">Su</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+</div>
+{% endblock %}

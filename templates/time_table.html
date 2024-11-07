@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<form id="search-form" method="post" action="{{ url_for('time_table') }}">
+    <!-- First Row: Search Form Elements -->
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="date-from">Date From:</label>
+            <input type="date" id="date-from" name="date_from" class="form-control">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="date-to">Date To:</label>
+            <input type="date" id="date-to" name="date_to" class="form-control">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="search-type">Search By:</label>
+            <select id="search-type" name="search_type" class="form-control">
+                <option value="ID">ID</option>
+                <option value="Name">Name</option>
+            </select>
+            <input type="text" name="search_value" placeholder="Enter value" class="form-control mt-2">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="search-department">Department:</label>
+            <select id="search-department" name="search_department" class="form-control">
+                <option value="">All Departments</option>
+                {% for department in departments %}
+                    <option value="{{ department }}">{{ department }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Second Row: Buttons -->
+    <div class="form-row justify-content-between mt-3">
+        <div class="col-md-6 d-flex">
+            <button type="submit" class="btn btn-primary mr-2">Search</button>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('time_table') }}'">Show All</button>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <button type="button" class="btn btn-info mr-2" id="select-all-button">Select All</button>
+        </div>
+    </div>
+</form>
+
+<!-- Table and Delete form together -->
+<form id="delete-form" method="post" action="{{ url_for('bulk_delete') }}">
+    <div class="table-responsive mt-3" style="max-height: 400px; overflow-y: auto;">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Department</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>In</th>
+                    <th>Out</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td class="action-cell">
+                        <input type="checkbox" class="delete-checkbox" name="delete_entries" value="{{ row[0] }},{{ row[1] }},{{ row[2] }},{{ row[3] }},{{ row[4] }},{{ row[5] }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Delete Selected Button -->
+    <div class="d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-danger">Delete Selected</button>
+
+    </div>
+    <a class="nav-link" href="{{ url_for('calculate_merit') }}">Go to Calculate Merit</a>
+</form>
+
+<!-- JavaScript for Select All functionality -->
+<script>
+    document.getElementById('select-all-button').addEventListener('click', function() {
+        const checkboxes = document.querySelectorAll('.delete-checkbox');
+        const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        checkboxes.forEach(checkbox => checkbox.checked = !allChecked);
+    });
+</script>
+{% endblock %}
