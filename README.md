@@ -1,5 +1,6 @@
 # Abjact
-This is my timekeeping machine using CNN models for anti face spoofing and recognition and fingerprint for identification. I also design and intergrated GUI and Web app for user interaction and management.
+This is my timekeeping machine using CNN models for anti face spoofing/recognition and fingerprint for identification. 
+I also design and intergrated GUI and Web app for user interaction and management.
 
 # Component
 - Jetson Nano B01 4gb
