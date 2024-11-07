@@ -9,7 +9,7 @@ I also design and intergrated GUI and Web app for user interaction and managemen
 - Fully functional and easy to use GUI. Supports registering/deleting users, managing user entry/exit time information.
 - Web app supports user information management and timekeeping
 
-# Component
+# Main components
 - Jetson Nano B01 4gb
 - USB Webbcam
 - Fingerprint sensor AS608
