@@ -16,6 +16,6 @@ I also design and intergrated GUI and Web app for user interaction and managemen
 - LCD Waveshare 7inch with touchpad
 
 # Video demo
-https://www.youtube.com/watch?v=WFZrX51BKZI 
+https://www.youtube.com/watch?v=Xm1QBtcRJm4 
 
   
