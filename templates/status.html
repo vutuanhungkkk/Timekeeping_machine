@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Status Information</h2>
+    <div class="row">
+        <!-- Device Information Card -->
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header bg-dark text-white">
+                    <strong>Device Details</strong>
+                </div>
+                <div class="card-body">
+                    <p><strong>Device Name:</strong> NVIDIA Jetson Nano</p>
+                    <p><strong>Model:</strong> B01</p>
+                    <p><strong>IP Address:</strong> {{ ip_address }}</p>
+                    <p><strong>Device Status:</strong>
+                        <span class="badge badge-success">Online</span>
+                    </p>
+                    <p><strong>Finger Capacity:</strong> {{ user_capacity }}/300</p>
+                    <p><strong>Face Capacity:</strong> {{ user_capacity }}/300</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Logout Button -->
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Log Out</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

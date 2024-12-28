@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>Welcome to the Timekeeping Dashboard</h1>
+    </div>
+
+    <div class="mt-4">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h5>Time Table</h5>
+                <p>Manage in/out times effectively.</p>
+            </li>
+            <li class="list-group-item">
+                <h5>User Analysis</h5>
+                <p>Analyze and manage user details.</p>
+            </li>
+            <li class="list-group-item">
+                <h5>Status</h5>
+                <p>View detailed information about the system’s status.</p>
+            </li>
+            <li class="list-group-item">
+                <h5>Account</h5>
+                <p>Manage account for the web application.</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="text-center mt-5">
+        <p>&copy; {{ current_year }} Timekeeping System from Vu Tuan Hung - 2011316. Electronic - Telecomunication Engineering.</p>
+    </div>
+</div>
+{% endblock %}
+
