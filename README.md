@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b560428c-035e-44da-82bd-4a64e618e559)# Abjact
+# Abjact
 This is my timekeeping machine using CNN models for anti face spoofing/recognition and fingerprint for identification. 
 I also design and intergrated GUI and Web app for user interaction and management.
 
